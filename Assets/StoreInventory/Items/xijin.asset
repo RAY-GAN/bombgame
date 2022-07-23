@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65482cf4e28394fcdad82a5d90335507, type: 3}
   m_Name: xijin
   m_EditorClassIdentifier: 
-  Itemname: "\u5438\u91D1"
-  Description: "\u5C0F\u7403\u83B7\u53D6\u91D1\u5E01\u3001\u661F\u3001\u5FC3\u7684\u8303\u56F4\u53D8\u5927"
+  Itemname: xijin
+  Description: "\u5438\u91D1\uFF1A\u5C0F\u7403\u83B7\u53D6\u91D1\u5E01\u3001\u661F\u3001\u5FC3\u7684\u8303\u56F4\u53D8\u5927"
   Image: {fileID: 21300040, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
   cost: 8

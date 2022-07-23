@@ -13,21 +13,21 @@ public class Timer : MonoBehaviour
 
     CompleteEvent onCompleted;
 
-    float timeTarget;   // 计时时间/
+    float timeTarget;   // ????????/
 
-    float timeStart;    // 开始计时时间/
+    float timeStart;    // ????????????/
 
-    float timeNow;     // 现在时间/
+    float timeNow;     // ????????/
 
-    float offsetTime;   // 计时偏差/
+    float offsetTime;   // ????????/
 
-    bool isTimer;       // 是否开始计时/
+    bool isTimer;       // ????????????/
 
-    bool isDestory = true;     // 计时结束后是否销毁/
+    bool isDestory = true;     // ??????????????????/
 
-    bool isEnd;         // 计时是否结束/
+    bool isEnd;         // ????????????/
 
-    bool isIgnoreTimeScale = true;  // 是否忽略时间速率
+    bool isIgnoreTimeScale = true;  // ????????????????
 
     bool isRepeate;
 
@@ -73,7 +73,7 @@ public class Timer : MonoBehaviour
     }
 
     /// <summary>
-    /// 计时结束
+    /// ????????
     /// </summary>
     public void destory()
     {
@@ -84,13 +84,13 @@ public class Timer : MonoBehaviour
     }
     float _pauseTime;
     /// <summary>
-    /// 暂停计时
+    /// ????????
     /// </summary>
     public void pauseTimer()
     {
         if (isEnd)
         {
-            if (isLog) Debug.LogWarning("计时已经结束！");
+            if (isLog) Debug.LogWarning("??????????????");
         }
         else
         {
@@ -102,13 +102,13 @@ public class Timer : MonoBehaviour
         }
     }
     /// <summary>
-    /// 继续计时
+    /// ????????
     /// </summary>
     public void connitueTimer()
     {
         if (isEnd)
         {
-            if (isLog) Debug.LogWarning("计时已经结束！请从新计时！");
+            if (isLog) Debug.LogWarning("??????????????????????????");
         }
         else
         {
@@ -125,12 +125,24 @@ public class Timer : MonoBehaviour
         offsetTime = 0;
     }
 
-    public void changeTargetTime(float time_)
+    public void reTargetTimer(float time_)
+    {
+        timeTarget = time_;
+    }
+
+    public void AddTargetTime(float time_)
     {
         timeTarget += time_;
     }
+
+    public void DecreaseTargetTime(float time_)
+    {
+        timeTarget -= time_;
+    }
+
+
     /// <summary>
-    /// 开始计时 : 
+    /// ???????? : 
     /// </summary>
     public void startTiming(float time_, CompleteEvent onCompleted_, UpdateEvent update = null, bool isIgnoreTimeScale_ = true, bool isRepeate_ = false, bool isDestory_ = true)
     {
@@ -150,7 +162,7 @@ public class Timer : MonoBehaviour
 
     }
     /// <summary>
-    /// 创建计时器:名字
+    /// ??????????:????
     /// </summary>
     public static Timer createTimer(string gobjName = "Timer")
     {
