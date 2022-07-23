@@ -10,7 +10,7 @@ public class Itemuse : MonoBehaviour
     private Player playerscript;
     //private Player opponentscript;
     public GameObject ball;
-    public Publictimer timerscript;
+    public GameObject timercontroller;
     private Timer publictimer;
     private List<Item> itemlist;
 
@@ -19,8 +19,9 @@ public class Itemuse : MonoBehaviour
     {
         playerscript = gameObject.GetComponent<Player>();
         //opponentscript = opponent.GetComponent<Player>();
-        publictimer = timerscript.publictimer;
+        publictimer = timercontroller.GetComponent<Publictimer>().publictimer;
         itemlist = playeritems.itemlist;
+
     }
 
     // Update is called once per frame
@@ -64,7 +65,7 @@ public class Itemuse : MonoBehaviour
         {
 
             Debug.Log("shiyongle" + item.Itemname);
-            Debug.Log(publictimer.GetLeftTime());
+            
 
 
             if (item.Itemname == "jiasu")
