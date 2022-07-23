@@ -28,12 +28,12 @@ public class Ball : MonoBehaviour
     {
         Debug.Log("complete!");
         Destroy(BallDestroy);
-    }    //控制计时器完成时要做什么
+    }    //????????????
     void OnProcess(float p)
     {
         //Debug.Log("on process" + p);
     }
-    //控制计时器进程操作内容
+    //???????????
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Block"))
