@@ -13,21 +13,21 @@ public class Timer : MonoBehaviour
 
     CompleteEvent onCompleted;
 
-    float timeTarget;   // ????????/
+    float timeTarget;  
 
-    float timeStart;    // ????????????/
+    float timeStart;    
 
-    float timeNow;     // ????????/
+    float timeNow;     
 
-    float offsetTime;   // ????????/
+    float offsetTime;   
 
-    bool isTimer;       // ????????????/
+    bool isTimer;
 
-    bool isDestory = true;     // ??????????????????/
+    bool isDestory = true;     
 
-    bool isEnd;         // ????????????/
+    bool isEnd;         
 
-    bool isIgnoreTimeScale = true;  // ????????????????
+    bool isIgnoreTimeScale = true;  
 
     bool isRepeate;
 
@@ -73,7 +73,7 @@ public class Timer : MonoBehaviour
     }
 
     /// <summary>
-    /// ????????
+    
     /// </summary>
     public void destory()
     {
@@ -84,13 +84,13 @@ public class Timer : MonoBehaviour
     }
     float _pauseTime;
     /// <summary>
-    /// ????????
+    
     /// </summary>
     public void pauseTimer()
     {
         if (isEnd)
         {
-            if (isLog) Debug.LogWarning("??????????????");
+            if (isLog) Debug.LogWarning("");
         }
         else
         {
@@ -108,7 +108,7 @@ public class Timer : MonoBehaviour
     {
         if (isEnd)
         {
-            if (isLog) Debug.LogWarning("??????????????????????????");
+            if (isLog) Debug.LogWarning("");
         }
         else
         {
@@ -142,7 +142,7 @@ public class Timer : MonoBehaviour
 
 
     /// <summary>
-    /// ???????? : 
+    /// 
     /// </summary>
     public void startTiming(float time_, CompleteEvent onCompleted_, UpdateEvent update = null, bool isIgnoreTimeScale_ = true, bool isRepeate_ = false, bool isDestory_ = true)
     {
@@ -162,7 +162,7 @@ public class Timer : MonoBehaviour
 
     }
     /// <summary>
-    /// ??????????:????
+    /// 
     /// </summary>
     public static Timer createTimer(string gobjName = "Timer")
     {
