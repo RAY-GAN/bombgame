@@ -8,7 +8,8 @@ public class Tabmanager : MonoBehaviour
 
     public Text Score1;
     public Text Score2;
-    public Text Time;
+    public Text GameTime;
+    public Text BombTime;
     public Text player1gold;
     public Text player2gold;
 
@@ -20,6 +21,27 @@ public class Tabmanager : MonoBehaviour
     public GameObject player2itemgrid;
 
     private GameObject tabpanel;
+
+    private bool enable;
+
+
+    void Awake()
+    {
+        GameManager.OnGameStateChanged += GameManager_OnGameStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManager_OnGameStateChanged;
+    }
+
+    private void GameManager_OnGameStateChanged(GameManager.GameState state)
+    {
+        enable = (state == GameManager.GameState.Playing);
+    }
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +57,7 @@ public class Tabmanager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) & enable)
         {
             tabpanel.SetActive(!tabpanel.activeSelf);
         }

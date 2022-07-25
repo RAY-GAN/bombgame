@@ -10,8 +10,8 @@ public class Itemuse : MonoBehaviour
     private Player playerscript;
     //private Player opponentscript;
     public GameObject ball;
-    public GameObject timercontroller;
-    private Timer publictimer;
+    //public GameObject timercontroller;
+    private Timer bombtimer;
     private List<Item> itemlist;
 
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class Itemuse : MonoBehaviour
     {
         playerscript = gameObject.GetComponent<Player>();
         //opponentscript = opponent.GetComponent<Player>();
-        publictimer = timercontroller.GetComponent<Publictimer>().publictimer;
+        bombtimer = GameManager.instance.bombtimer;
         itemlist = playeritems.itemlist;
 
     }
@@ -70,15 +70,15 @@ public class Itemuse : MonoBehaviour
 
             if (item.Itemname == "jiasu")
             {
-                publictimer.DecreaseTargetTime(10f);
-                Debug.Log("after" + publictimer.GetLeftTime());
+                bombtimer.DecreaseTargetTime(10f);
+                Debug.Log("after" + bombtimer.GetLeftTime());
                 
             }
 
             if (item.Itemname == "jiansu")
             {
-                publictimer.AddTargetTime(10f);
-                Debug.Log("after" + publictimer.GetLeftTime());
+                bombtimer.AddTargetTime(10f);
+                Debug.Log("after" + bombtimer.GetLeftTime());
 
             }
 
@@ -94,10 +94,10 @@ public class Itemuse : MonoBehaviour
             if (item.Itemname == "buwending")
             {
                 float reTargettime = Random.Range(15f, 60f);
-                publictimer.reTargetTimer(reTargettime);
+                bombtimer.reTargetTimer(reTargettime);
                 //Text = "";
                 //ball.resetable = false;
-                Debug.Log("after" + publictimer.GetLeftTime());
+                Debug.Log("after" + bombtimer.GetLeftTime());
 
             }
 
@@ -120,7 +120,7 @@ public class Itemuse : MonoBehaviour
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 rb.constraints = RigidbodyConstraints2D.None;
 
-                publictimer.reStartTimer();
+                bombtimer.reStartTimer();
 
             }
 
@@ -129,8 +129,8 @@ public class Itemuse : MonoBehaviour
                 Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
                 Vector3 velocity = rb.velocity;
                 rb.bodyType = RigidbodyType2D.Static;
-                publictimer.pauseTimer();
-                StartCoroutine(WaitForSeconds(8f, rb, publictimer, velocity));
+                bombtimer.pauseTimer();
+                StartCoroutine(WaitForSeconds(8f, rb, bombtimer, velocity));
             }
 
 

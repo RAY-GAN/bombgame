@@ -25,7 +25,7 @@ public class Slot : MonoBehaviour
 
     public void ItemOnclicked()
     {
-        InventoryManager.UpdateItemInfo(item.Itemname + item.Description);
+        InventoryManager.instance.UpdateItemInfo(item.Itemname + item.Description);
     }
 
    

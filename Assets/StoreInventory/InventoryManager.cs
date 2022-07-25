@@ -7,15 +7,17 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
 
-    static InventoryManager instance;
+    public static InventoryManager instance;
 
 
     public PlayerInventory player1item;
     public PlayerInventory player2item;
     public PlayerInventory all;
 
+    private bool player1ready;
+    private bool player2ready;
 
- 
+    
 
     public List<Item> saleitems= new List<Item>();
 
@@ -35,6 +37,8 @@ public class InventoryManager : MonoBehaviour
         if (instance != null)
             Destroy(this);
         instance = this;
+
+        GameManager.OnGameStateChanged += GameManager_OnGameStateChanged;
     }
 
 
@@ -44,8 +48,19 @@ public class InventoryManager : MonoBehaviour
         
     }
 
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManager_OnGameStateChanged;
+    }
 
-    public static void UpdateItemInfo(string itemdescription)
+    private void GameManager_OnGameStateChanged(GameManager.GameState state)
+    {
+        gameObject.transform.GetChild(0).gameObject.SetActive(state == GameManager.GameState.Store);
+    }
+
+
+
+    public void UpdateItemInfo(string itemdescription)
     {
         instance.iteminfo.text = itemdescription;
     }
