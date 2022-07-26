@@ -42,7 +42,8 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
 
                 /* player1*/
-                if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player1")
+                if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player1"
+                    & GameManager.instance.State == GameManager.GameState.Storeplayer1)
                 {
 
                     if (InventoryManager.AddItem(transaction, player1items))
@@ -67,8 +68,16 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 }
 
+                else if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player1"
+                   & GameManager.instance.State == GameManager.GameState.Storeplayer2)
+
+                {
+                    Backpos(eventData);
+                }
+
                 /* player2*/
-                else if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player2")
+                else if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player2"
+                    & GameManager.instance.State == GameManager.GameState.Storeplayer2)
                 {
 
                     if (InventoryManager.AddItem(transaction, player2items))
@@ -86,6 +95,13 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 }
 
+                else if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player2"
+                   & GameManager.instance.State == GameManager.GameState.Storeplayer1)
+
+                {
+                    Backpos(eventData);
+                }
+
             }
 
             else
@@ -98,12 +114,18 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         /* 从角色退回到商店*/
         else if (originalparent.parent.gameObject.name == "Items")
         {
-            if (eventData.pointerCurrentRaycast.gameObject.name == "Image"
+            if (transaction == null)
+            {
+                Backpos(eventData);
+            }
+
+            else if (eventData.pointerCurrentRaycast.gameObject.name == "Image"
                & (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.gameObject.name == "SellItems"))
             {
 
                 /* player1*/
-                if (originalparent.parent.parent.gameObject.name == "Player1")
+                if (originalparent.parent.parent.gameObject.name == "Player1"
+                    & GameManager.instance.State == GameManager.GameState.Storeplayer1)
                 {
                     if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.gameObject.GetComponent<Slot>().item != null)
                     {
@@ -116,8 +138,11 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 }
 
+                
+
                 /* player2*/
-                else if (originalparent.parent.parent.gameObject.name == "Player2")
+                else if (originalparent.parent.parent.gameObject.name == "Player2"
+                    & GameManager.instance.State == GameManager.GameState.Storeplayer2)
                 {
                     if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.gameObject.GetComponent<Slot>().item != null)
                     {

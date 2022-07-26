@@ -14,10 +14,10 @@ public class InventoryManager : MonoBehaviour
     public PlayerInventory player2item;
     public PlayerInventory all;
 
-    private bool player1ready;
-    private bool player2ready;
+    public GameObject player1ready;
+    public GameObject player2ready;
+    public int readytime = 0;
 
-    
 
     public List<Item> saleitems= new List<Item>();
 
@@ -55,7 +55,60 @@ public class InventoryManager : MonoBehaviour
 
     private void GameManager_OnGameStateChanged(GameManager.GameState state)
     {
-        gameObject.transform.GetChild(0).gameObject.SetActive(state == GameManager.GameState.Store);
+        gameObject.transform.GetChild(0).gameObject.SetActive(state == GameManager.GameState.Storeplayer1  || state == GameManager.GameState.Storeplayer2);
+        if (state == GameManager.GameState.Storeplayer1)
+        {
+            player1ready.GetComponent<Button>().enabled = true;
+            player2ready.GetComponent<Button>().enabled = false;
+            
+
+            for (int i = 0; i < 3; i++)
+            {
+                Transform grid = player1itemgrid.transform.GetChild(i);
+
+                GameObject item = grid.GetChild(0).gameObject;
+                item.GetComponent<Itemdraghandler>().enabled = true;
+
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                Transform grid = player2itemgrid.transform.GetChild(i);
+
+                GameObject item = grid.GetChild(0).gameObject;
+
+                item.GetComponent<Itemdraghandler>().enabled = false;
+
+            }
+        }
+        if (state == GameManager.GameState.Storeplayer2)
+        {
+            player2ready.GetComponent<Button>().enabled = true;
+            player1ready.GetComponent<Button>().enabled = false;
+            
+
+            for (int i = 0; i < 3; i++)
+            {
+                Transform grid = player2itemgrid.transform.GetChild(i);
+
+                GameObject item = grid.GetChild(0).gameObject;
+
+                Debug.Log("true" + item);
+
+                item.GetComponent<Itemdraghandler>().enabled = true;
+
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                Transform grid = player1itemgrid.transform.GetChild(i);
+
+                GameObject item = grid.GetChild(0).gameObject;
+
+                item.GetComponent<Itemdraghandler>().enabled = false;
+
+            }
+        }
+
     }
 
 
@@ -68,17 +121,8 @@ public class InventoryManager : MonoBehaviour
     void Start()
     {
 
-        for (int i = 0; i < 8; i++)
-        {
-            int index = Random.Range(0,all.itemlist.Count);
 
-            while (saleitems.Contains(all.itemlist[index]))
-            {
-                index = Random.Range(0, all.itemlist.Count);
-            }
-
-            saleitems.Add(all.itemlist[index]);
-        }
+        Refreshstore();
 
 
 
@@ -138,11 +182,21 @@ public class InventoryManager : MonoBehaviour
     {
         instance.player1gold.text = player1item.gold.ToString();
         instance.player2gold.text = player2item.gold.ToString();
+
+
+
+        if (readytime == 2)
+        {
+            GameManager.instance.UpdateGameState(GameManager.GameState.Playing);
+            readytime = 0;
+            Debug.Log("kaishi");
+        }
+
     }
 
     public static bool AddItem(Item item, PlayerInventory playeritems)
     {
-        if (!playeritems.itemlist.Contains(item) & item.cost < playeritems.gold)
+        if (!playeritems.itemlist.Contains(item) & item.cost <= playeritems.gold)
         {
             playeritems.itemlist.Add(item);
             playeritems.gold -= item.cost;
@@ -160,6 +214,8 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("shengji");
             return false;
         }
+
+        
     }
 
 
@@ -174,5 +230,39 @@ public class InventoryManager : MonoBehaviour
         
     }
 
+
+    public void Refreshstore()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            int index = Random.Range(0, all.itemlist.Count);
+
+            while (saleitems.Contains(all.itemlist[index]))
+            {
+                index = Random.Range(0, all.itemlist.Count);
+            }
+
+            saleitems.Add(all.itemlist[index]);
+        }
+
+    }
+
+
+    public void SwitchStore()
+    {
+        if (GameManager.instance.State == GameManager.GameState.Storeplayer1 & readytime < 2)
+        {
+            GameManager.instance.UpdateGameState(GameManager.GameState.Storeplayer2);
+            readytime++;
+            Debug.Log("huan");
+        }
+        if (GameManager.instance.State == GameManager.GameState.Storeplayer2 & readytime < 2)
+        {
+            GameManager.instance.UpdateGameState(GameManager.GameState.Storeplayer1);
+            readytime++;
+            Debug.Log("huan");
+        }
+       
+    }
 
 }

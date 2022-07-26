@@ -10,7 +10,13 @@ public class Ball : MonoBehaviour
     public GameObject Player1;
     public GameObject Player2;
     private LayerMask ballTurn;
+    public int ballowner = 1;
+    public int attackowner = 1;
     public GameObject BallDestroy;
+
+    public PlayerInventory player1gold;
+    public PlayerInventory player2gold;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +45,14 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.CompareTag("Block"))
         {
             Destroy(collision.gameObject);
+            if (attackowner == 1)
+            {
+                player1gold.gold++;
+            }
+            if (attackowner == 2)
+            {
+                player2gold.gold++;
+            }
         }
         if (collision.gameObject.CompareTag("Player1"))
         {
@@ -47,6 +61,10 @@ public class Ball : MonoBehaviour
             Debug.Log(1);
             //Player1.GetComponent<Player>().isTurn=false;
             playerScript.isAttack = true;
+
+            attackowner = 1;
+            ballowner = 2;
+
         }
         if (collision.gameObject.CompareTag("Player2"))
         {
@@ -55,6 +73,10 @@ public class Ball : MonoBehaviour
             Debug.Log(2);
             playerScript.isTurn = false;
             playerScript.isAttack = true;
+
+            attackowner = 2;
+            ballowner = 1;
+
         }
         //if (GetComponent<Player>().isTurn == false)
         //{

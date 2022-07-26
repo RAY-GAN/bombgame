@@ -10,4 +10,6 @@ public class PlayerInventory : ScriptableObject
 
     public int gold;
 
+    public int score;
+
 }
