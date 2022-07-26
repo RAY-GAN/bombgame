@@ -118,24 +118,63 @@ public class Tabmanager : MonoBehaviour
 
 
 
-        for (int i = 0; i < player2item.itemlist.Count; i++)
+        if (player2item.itemlist.Count == player2itemgrid.transform.childCount)
         {
-            GameObject grid = player2itemgrid.transform.GetChild(i).gameObject;
+            for (int i = 0; i < player2itemgrid.transform.childCount; i++)
+            {
 
-            Item item = player2item.itemlist[i];
+                GameObject grid = player2itemgrid.transform.GetChild(i).gameObject;
 
 
-            Slot slot = grid.GetComponent<Slot>();
+                Item item = player2item.itemlist[i];
 
-            slot.item = item;
-            slot.itemicon.sprite = item.Image;
-            slot.cost.text = item.cost.ToString();
 
+                Slot slot = grid.GetComponent<Slot>();
+
+                slot.item = item;
+                slot.itemicon.sprite = item.Image;
+                slot.cost.text = item.cost.ToString();
+            }
+
+        }
+
+        else if (player2item.itemlist.Count < player2itemgrid.transform.childCount)
+        {
+            for (int i = 0; i < player2item.itemlist.Count; i++)
+            {
+
+                GameObject grid = player1itemgrid.transform.GetChild(i).gameObject;
+
+
+                Item item = player1item.itemlist[i];
+
+
+                Slot slot = grid.GetComponent<Slot>();
+
+                slot.item = item;
+                slot.itemicon.sprite = item.Image;
+                slot.cost.text = item.cost.ToString();
+            }
+
+            for (int i = player2item.itemlist.Count; i < player2itemgrid.transform.childCount; i++)
+            {
+                GameObject grid = player2itemgrid.transform.GetChild(i).gameObject;
+
+
+                Slot slot = grid.GetComponent<Slot>();
+
+                slot.item = null;
+                slot.itemicon.sprite = null;
+                slot.cost.text = "";
+            }
         }
 
         player1gold.text = player1item.gold.ToString();
         player2gold.text = player2item.gold.ToString();
-
+        Score1.text = player1item.score.ToString();
+        Score2.text = player2item.score.ToString();
+        GameTime.text = GameManager.instance.gametimer.GetLeftTime().ToString();
+        BombTime.text = GameManager.instance.bombtimer.GetLeftTime().ToString();
 
     }
 }

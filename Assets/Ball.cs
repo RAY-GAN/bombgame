@@ -17,6 +17,8 @@ public class Ball : MonoBehaviour
     public PlayerInventory player1gold;
     public PlayerInventory player2gold;
 
+
+
     // Start is called before the first frame update
     void Start()
     {

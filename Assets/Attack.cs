@@ -19,8 +19,25 @@ public class Attack : MonoBehaviour
     public GameObject player;
     Vector3 location;
 
+
+    void Awake()
+    {
+        GameManager.OnGameStateChanged += GameManager_OnGameStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManager_OnGameStateChanged;
+    }
+
+    private void GameManager_OnGameStateChanged(GameManager.GameState state)
+    {
+
+        gameObject.GetComponent<Attack>().enabled = (state == GameManager.GameState.Playing);
+    }
+
     // Start is called before the first frame update
-    void Start()//获取玩家当前所在位置
+    void Start()//????????????????????
     {
         location = player.transform.position;
         //(x1,y1,z1)-(x2,y2,z2)
@@ -30,7 +47,7 @@ public class Attack : MonoBehaviour
     void Update()
     {
         Quaternion pos = transform.rotation;
-        if (Input.GetKey(KeyCode.K))//按下k键位进行zoneAttack攻击判定
+        if (Input.GetKey(KeyCode.K))//????k????????zoneAttack????????
         {
             //camAnim.SetTrigger("shake");
             Collider[] boxToPlayer = Physics.OverlapSphere(attackPos.position, attackRange, whatIsPlayer);

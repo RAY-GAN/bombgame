@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public  Timer gametimer;
 
     public float settime = 100f;
-    public float bombtime = 5f;
+    public float bombtime = 10f;
 
     public PlayerInventory player1data;
     public PlayerInventory player2data;
@@ -24,7 +24,11 @@ public class GameManager : MonoBehaviour
     public bool started = false; //从商店回来用
 
     public GameState State;
-    
+
+    public GameObject player1;
+    //public GameObject player2;
+
+
 
     void Awake()
     {
@@ -35,7 +39,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UpdateGameState(GameState.Start);   
+        UpdateGameState(GameState.Start);
+
     }
 
     public void UpdateGameState(GameState newState)
@@ -81,7 +86,8 @@ public class GameManager : MonoBehaviour
     private void HandlePlayingState()
     {
 
-        InventoryManager.instance.Refreshstore();
+   
+
 
         if (started == false)
         {
@@ -96,7 +102,8 @@ public class GameManager : MonoBehaviour
 
         if (started == true)
         {
-            Debug.Log(gametimer.GetLeftTime());
+            
+            //Debug.Log(gametimer.GetLeftTime());
             float shrinktime = UnityEngine.Random.Range(1f, 5f);
             bombtime -= shrinktime;
             if (bombtime < 7f)
@@ -106,7 +113,7 @@ public class GameManager : MonoBehaviour
             bombtimer = Timer.createTimer("Bombtimer");
             bombtimer.startTiming(bombtime, OnbombComplete);
             gametimer.connitueTimer();
-            Debug.Log("zhadanxianzai" + bombtimer.GetLeftTime());
+            //Debug.Log("zhadanxianzai" + bombtimer.GetLeftTime());
         }
 
         started = true;
@@ -123,6 +130,20 @@ public class GameManager : MonoBehaviour
         {
             player2data.score++;
             player1data.gold += 5;
+
+            Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+            Vector3 p1pos = player1.transform.position;
+            Player player1script = player1.GetComponent<Player>();
+       
+            player1script.isTurn = false;
+            ball.transform.position = new Vector3(p1pos.x, p1pos.y + 1.1f, p1pos.z);
+            ball.transform.SetParent(player1.transform);
+            rb.velocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            rb.constraints = RigidbodyConstraints2D.None;
+            
+
+
             UpdateGameState(GameState.Storeplayer1);
         }
 
@@ -130,6 +151,20 @@ public class GameManager : MonoBehaviour
         {
             player1data.score++;
             player2data.gold += 5;
+
+
+            /*player2script.isTurn = false;
+
+
+            ball.transform.position = new Vector3(p2pos.x, p2pos.y + 1.1f, p2pos.z);
+            ball.transform.SetParent(player2.transform);
+            rb.velocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            rb.constraints = RigidbodyConstraints2D.None;
+            */
+
+
+
             UpdateGameState(GameState.Storeplayer2);
         }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -165,13 +166,19 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private void Switchpos(PointerEventData eventData)
     {
-        Item temp = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.GetComponent<Slot>().item;
+        Item tempitem = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.GetComponent<Slot>().item;
+        Image tempimage = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.GetComponent<Slot>().itemicon;
+        Text temptext = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.GetComponent<Slot>().cost;
         transform.SetParent(eventData.pointerCurrentRaycast.gameObject.transform.parent.parent);
         transform.position = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.position;
         transform.parent.GetComponent<Slot>().item = transaction;
+        transform.parent.GetComponent<Slot>().itemicon = originalparent.GetComponent<Slot>().itemicon;
+        transform.parent.GetComponent<Slot>().cost = originalparent.GetComponent<Slot>().cost;
         eventData.pointerCurrentRaycast.gameObject.transform.parent.position = originalparent.position;
         eventData.pointerCurrentRaycast.gameObject.transform.parent.SetParent(originalparent);
-        originalparent.GetComponent<Slot>().item = temp;
+        originalparent.GetComponent<Slot>().item = tempitem;
+        originalparent.GetComponent<Slot>().itemicon = tempimage;
+        originalparent.GetComponent<Slot>().cost = temptext;
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         return;
     }

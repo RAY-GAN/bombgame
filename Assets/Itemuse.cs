@@ -7,7 +7,7 @@ public class Itemuse : MonoBehaviour
 
     public PlayerInventory playeritems;
     //public GameObject opponent;
-    private Player playerscript;
+    private Player player1script;
     //private Player opponentscript;
     public GameObject ball;
     //public GameObject timercontroller;
@@ -17,7 +17,7 @@ public class Itemuse : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerscript = gameObject.GetComponent<Player>();
+        player1script = gameObject.GetComponent<Player>();
         //opponentscript = opponent.GetComponent<Player>();
         bombtimer = GameManager.instance.bombtimer;
         itemlist = playeritems.itemlist;
@@ -110,7 +110,7 @@ public class Itemuse : MonoBehaviour
 
             if (item.Itemname == "huisu")
             {
-                playerscript.isTurn = false;
+                player1script.isTurn = false;
                 Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
                 Vector3 position = gameObject.transform.position;
                 
@@ -128,8 +128,11 @@ public class Itemuse : MonoBehaviour
             {
                 Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
                 Vector3 velocity = rb.velocity;
-                rb.bodyType = RigidbodyType2D.Static;
+                rb.velocity = Vector3.zero;
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                rb.constraints = RigidbodyConstraints2D.None;
                 bombtimer.pauseTimer();
+                Debug.Log(bombtimer.GetLeftTime());
                 StartCoroutine(WaitForSeconds(8f, rb, bombtimer, velocity));
             }
 
@@ -139,13 +142,12 @@ public class Itemuse : MonoBehaviour
     }
 
 
-    public static IEnumerator WaitForSeconds(float duration, Rigidbody2D rb, Timer timer, Vector3 velocity)
+    public IEnumerator WaitForSeconds(float duration, Rigidbody2D rb, Timer timer, Vector3 velocity)
     {
         yield return new WaitForSeconds(duration);
-        rb.bodyType = RigidbodyType2D.Dynamic;
         rb.AddForce(velocity,ForceMode2D.Impulse);
         timer.connitueTimer();
-        Debug.Log("restarted");
+        Debug.Log("restarted" + timer.GetLeftTime());
     }
 
 
