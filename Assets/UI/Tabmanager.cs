@@ -38,6 +38,7 @@ public class Tabmanager : MonoBehaviour
     private void GameManager_OnGameStateChanged(GameManager.GameState state)
     {
         enable = (state == GameManager.GameState.Playing);
+        
     }
 
 
@@ -48,7 +49,7 @@ public class Tabmanager : MonoBehaviour
     {
 
         tabpanel = gameObject.transform.GetChild(0).gameObject;
-
+        
 
 
     }

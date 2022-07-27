@@ -55,18 +55,39 @@ public class Player : MonoBehaviour
         }
         Vector2 p = new Vector2(Mathf.Sin(AxisZ) * -1, Mathf.Cos(AxisZ) * 1);
         //Debug.Log(p);
-        float movement = Input.GetAxisRaw("Horizontal");
-        float upsideDown = Input.GetAxisRaw("Vertical");
-        transform.Translate(movement * moveSpeed * Time.deltaTime, 0, 0);
-        transform.Translate(0, upsideDown * moveSpeed * Time.deltaTime, 0);
-        if (Input.GetKey(KeyCode.Q) && axisZ <= angle)
+
+        if (gameObject.CompareTag("Player1"))
         {
-            myTransform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+            float movement = Input.GetAxisRaw("Horizontal");
+            float upsideDown = Input.GetAxisRaw("Vertical");
+            transform.Translate(movement * moveSpeed * Time.deltaTime, 0, 0);
+            transform.Translate(0, upsideDown * moveSpeed * Time.deltaTime, 0);
+            if (Input.GetKey(KeyCode.Q) && axisZ <= angle)
+            {
+                myTransform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.E) && axisZ >= -angle)
+            {
+                myTransform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
+                //Debug.Log(axisZ);
+            }
         }
-        if (Input.GetKey(KeyCode.E) && axisZ >= -angle)
+
+        else if (gameObject.CompareTag("Player2"))
         {
-            myTransform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
-            //Debug.Log(axisZ);
+            float movement = Input.GetAxisRaw("Horizontal1");
+            float upsideDown = Input.GetAxisRaw("Vertical1");
+            transform.Translate(movement * moveSpeed * Time.deltaTime, 0, 0);
+            transform.Translate(0, upsideDown * moveSpeed * Time.deltaTime, 0);
+            if (Input.GetKey(KeyCode.N) && axisZ <= angle)
+            {
+                myTransform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.M) && axisZ >= -angle)
+            {
+                myTransform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
+                //Debug.Log(axisZ);
+            }
         }
 
 

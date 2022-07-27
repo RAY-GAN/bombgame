@@ -1,25 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Itemuse : MonoBehaviour
 {
 
     public PlayerInventory playeritems;
-    //public GameObject opponent;
+    public GameObject opponent;
     private Player player1script;
-    //private Player opponentscript;
+    private Player opponentscript;
     public GameObject ball;
-    //public GameObject timercontroller;
-    private Timer bombtimer;
+    private Ball ballscript;
     private List<Item> itemlist;
+
+    public GameObject bombtime;
+
+
+    void Awake()
+    {
+        GameManager.OnGameStateChanged += GameManager_OnGameStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManager_OnGameStateChanged;
+    }
+
+    private void GameManager_OnGameStateChanged(GameManager.GameState state)
+    {
+
+        gameObject.GetComponent<Itemuse>().enabled = (state == GameManager.GameState.Playing);
+    }
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         player1script = gameObject.GetComponent<Player>();
-        //opponentscript = opponent.GetComponent<Player>();
-        bombtimer = GameManager.instance.bombtimer;
+        opponentscript = opponent.GetComponent<Player>();
+        ballscript = ball.GetComponent<Ball>();
         itemlist = playeritems.itemlist;
 
     }
@@ -27,16 +48,19 @@ public class Itemuse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (itemlist.Count == 0)
+        {
+            return;
+        }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             
-
             if (itemlist[0] != null)
-            {
+             {
                 Useitem(itemlist[0]);
          
-            }
+             }
 
         }
 
@@ -56,6 +80,8 @@ public class Itemuse : MonoBehaviour
             }
         }
 
+        
+
     }
 
 
@@ -70,15 +96,15 @@ public class Itemuse : MonoBehaviour
 
             if (item.Itemname == "jiasu")
             {
-                bombtimer.DecreaseTargetTime(10f);
-                Debug.Log("after" + bombtimer.GetLeftTime());
+                GameManager.instance.bombtimer.DecreaseTargetTime(10f);
+                Debug.Log("after" + GameManager.instance.bombtimer.GetLeftTime());
                 
             }
 
             if (item.Itemname == "jiansu")
             {
-                bombtimer.AddTargetTime(10f);
-                Debug.Log("after" + bombtimer.GetLeftTime());
+                GameManager.instance.bombtimer.AddTargetTime(10f);
+                Debug.Log("after" + GameManager.instance.bombtimer.GetLeftTime());
 
             }
 
@@ -94,18 +120,17 @@ public class Itemuse : MonoBehaviour
             if (item.Itemname == "buwending")
             {
                 float reTargettime = Random.Range(15f, 60f);
-                bombtimer.reTargetTimer(reTargettime);
-                //Text = "";
-                //ball.resetable = false;
-                Debug.Log("after" + bombtimer.GetLeftTime());
+                GameManager.instance.bombtimer.AddTargetTime(reTargettime - GameManager.instance.bombtimer.GetLeftTime());
+                ballscript.resetable = false;
+                bombtime.SetActive(false);
+                //Debug.Log("after" + bombtimer.GetLeftTime());
 
             }
 
             if (item.Itemname == "dianxue")
             {
-                /* opponentscript.GetHittime += 3f;
-                 ?Player????isHit????GetHittime?
-                 */
+                gameObject.GetComponent<Attack>().time += 3;
+      
             }
 
             if (item.Itemname == "huisu")
@@ -120,7 +145,7 @@ public class Itemuse : MonoBehaviour
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 rb.constraints = RigidbodyConstraints2D.None;
 
-                bombtimer.reStartTimer();
+                GameManager.instance.bombtimer.reStartTimer();
 
             }
 
@@ -131,11 +156,48 @@ public class Itemuse : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 rb.constraints = RigidbodyConstraints2D.None;
-                bombtimer.pauseTimer();
-                Debug.Log(bombtimer.GetLeftTime());
-                StartCoroutine(WaitForSeconds(8f, rb, bombtimer, velocity));
+                GameManager.instance.bombtimer.pauseTimer();
+                Debug.Log(GameManager.instance.bombtimer.GetLeftTime());
+                StartCoroutine(WaitForSeconds(8f, rb, GameManager.instance.bombtimer, velocity));
             }
 
+            if (item.Itemname == "zhuanjia")
+            {
+                ballscript.goldincrement1++;
+            }
+
+            if (item.Itemname == "dongzhu")
+            {
+                opponentscript.moveSpeed -= 3;
+            }
+
+            if (item.Itemname == "buxu")
+            {
+                opponentscript.rotateSpeed -= 10;
+            }
+
+            if (item.Itemname == "qifei")
+            {
+                Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+                Vector3 velocity = rb.velocity;
+                Vector3 direction = velocity.normalized;
+                float magnitude = velocity.magnitude;
+                if (ballscript.ballowner == 2)
+                {
+                    rb.velocity = direction * (magnitude += 5);
+                }
+            }
+
+
+            if (item.Itemname == "wuqi")
+            {
+                opponent.GetComponent<Attack>().attackRange++;
+            }
+
+            if (item.Itemname == "qingna")
+            {
+                ballscript.zhadan2 = true;
+            }
 
         }
 

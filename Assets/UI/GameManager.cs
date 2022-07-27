@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public GameState State;
 
     public GameObject player1;
-    //public GameObject player2;
+    public GameObject player2;
 
 
 
@@ -72,10 +72,10 @@ public class GameManager : MonoBehaviour
 
     private void HandleStartState()
     {
-        player1data.itemlist.Clear();
+        //player1data.itemlist.Clear();
         player1data.gold = 0;
         player1data.score = 0;
-        player2data.itemlist.Clear();
+        //player2data.itemlist.Clear();
         player2data.gold = 0;
         player2data.score = 0;
 
@@ -104,12 +104,6 @@ public class GameManager : MonoBehaviour
         {
             
             //Debug.Log(gametimer.GetLeftTime());
-            float shrinktime = UnityEngine.Random.Range(1f, 5f);
-            bombtime -= shrinktime;
-            if (bombtime < 7f)
-            {
-                bombtime = 7f;
-            }
             bombtimer = Timer.createTimer("Bombtimer");
             bombtimer.startTiming(bombtime, OnbombComplete);
             gametimer.connitueTimer();
@@ -152,8 +146,12 @@ public class GameManager : MonoBehaviour
             player1data.score++;
             player2data.gold += 5;
 
+            Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+            Vector3 p2pos = player2.transform.position;
+            Player player2script = player2.GetComponent<Player>();
 
-            /*player2script.isTurn = false;
+
+            player2script.isTurn = false;
 
 
             ball.transform.position = new Vector3(p2pos.x, p2pos.y + 1.1f, p2pos.z);
@@ -161,7 +159,7 @@ public class GameManager : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             rb.constraints = RigidbodyConstraints2D.None;
-            */
+            
 
 
 
