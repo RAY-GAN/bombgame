@@ -72,10 +72,10 @@ public class GameManager : MonoBehaviour
 
     private void HandleStartState()
     {
-        //player1data.itemlist.Clear();
+        player1data.itemlist.Clear();
         player1data.gold = 0;
         player1data.score = 0;
-        //player2data.itemlist.Clear();
+        player2data.itemlist.Clear();
         player2data.gold = 0;
         player2data.score = 0;
 
@@ -135,8 +135,9 @@ public class GameManager : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             rb.constraints = RigidbodyConstraints2D.None;
-            
 
+            ball.ballowner = 2;
+            ball.attackowner = 1;
 
             UpdateGameState(GameState.Storeplayer1);
         }
@@ -159,8 +160,9 @@ public class GameManager : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             rb.constraints = RigidbodyConstraints2D.None;
-            
 
+            ball.ballowner = 1;
+            ball.attackowner = 2;
 
 
             UpdateGameState(GameState.Storeplayer2);

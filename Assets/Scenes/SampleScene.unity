@@ -1702,7 +1702,7 @@ MonoBehaviour:
   playerScript: {fileID: 888821318}
   Player1: {fileID: 0}
   Player2: {fileID: 0}
-  ballowner: 1
+  ballowner: 2
   attackowner: 1
   goldincrement1: 1
   goldincrement2: 1
@@ -3439,14 +3439,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888821311}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -3487,6 +3487,16 @@ MonoBehaviour:
   playeritems: {fileID: 11400000, guid: 06bc70052ce844acb88c0e6ee9f4efcc, type: 2}
   opponent: {fileID: 1648666807}
   ball: {fileID: 536688871}
+  p1camera: {fileID: 1948286555}
+  p2camera: {fileID: 1255789376}
+  xianjingprefab: {fileID: 804897161729143556, guid: dd07274a4d2534edab121080d40d5ebd,
+    type: 3}
+  zhuaquprefab: {fileID: 4089243086302477885, guid: b3adbf166088e49b89284b98e4f36c5a,
+    type: 3}
+  TNTprefab: {fileID: 3469145278754516697, guid: 764e8d1daa74f4ef9b608e52c98ccd06,
+    type: 3}
+  caoprefab: {fileID: 7174041030904667031, guid: 6f6c0173951754e60be39acafbee30c6,
+    type: 3}
   bombtime: {fileID: 1701080886}
 --- !u!1 &921309562
 GameObject:
@@ -4639,6 +4649,124 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01f075ba6ddc44543b57792e0fc4b61d, type: 3}
+--- !u!1 &1255789373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1255789377}
+  - component: {fileID: 1255789376}
+  - component: {fileID: 1255789375}
+  - component: {fileID: 1255789374}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1255789374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255789373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+--- !u!81 &1255789375
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255789373}
+  m_Enabled: 0
+--- !u!20 &1255789376
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255789373}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 767
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 1
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1255789377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255789373}
+  m_LocalRotation: {x: -0.18158515, y: -0, z: -0, w: 0.98337525}
+  m_LocalPosition: {x: 0, y: -28.8, z: -41.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: -20.924, y: 0, z: 0}
 --- !u!1001 &1270104474
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6290,6 +6418,16 @@ MonoBehaviour:
   playeritems: {fileID: 11400000, guid: a38c7fcaad4ef474e9f736018c6ab02e, type: 2}
   opponent: {fileID: 888821311}
   ball: {fileID: 536688871}
+  p1camera: {fileID: 1948286555}
+  p2camera: {fileID: 1255789376}
+  xianjingprefab: {fileID: 804897161729143556, guid: dd07274a4d2534edab121080d40d5ebd,
+    type: 3}
+  zhuaquprefab: {fileID: 4089243086302477885, guid: b3adbf166088e49b89284b98e4f36c5a,
+    type: 3}
+  TNTprefab: {fileID: 3469145278754516697, guid: 764e8d1daa74f4ef9b608e52c98ccd06,
+    type: 3}
+  caoprefab: {fileID: 7174041030904667031, guid: 6f6c0173951754e60be39acafbee30c6,
+    type: 3}
   bombtime: {fileID: 1701080886}
 --- !u!61 &1648666809
 BoxCollider2D:
@@ -6325,7 +6463,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648666807}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -7250,7 +7388,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 511
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

@@ -8,11 +8,22 @@ public class Itemuse : MonoBehaviour
 
     public PlayerInventory playeritems;
     public GameObject opponent;
-    private Player player1script;
+    private Player playerscript;
     private Player opponentscript;
     public GameObject ball;
     private Ball ballscript;
     private List<Item> itemlist;
+
+
+    public Camera p1camera;
+    public Camera p2camera;
+
+    public GameObject xianjingprefab;
+    public GameObject zhuaquprefab;
+    //public GameObject qianliprefab;
+    public GameObject TNTprefab;
+    public GameObject caoprefab;
+
 
     public GameObject bombtime;
 
@@ -38,7 +49,7 @@ public class Itemuse : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player1script = gameObject.GetComponent<Player>();
+        playerscript = gameObject.GetComponent<Player>();
         opponentscript = opponent.GetComponent<Player>();
         ballscript = ball.GetComponent<Ball>();
         itemlist = playeritems.itemlist;
@@ -110,10 +121,24 @@ public class Itemuse : MonoBehaviour
 
             if (item.Itemname == "xianjing")
             {
-                /*Vector3 position = gameObject.transform.position;
+                Vector3 position = gameObject.transform.position;
                 Quaternion rotation = gameObject.transform.rotation;
-                Instantiate(xianjingprefab, position, rotation);*/
-                Debug.Log("used xianjing");
+
+                if (gameObject.CompareTag("Player1"))
+                {
+                    xianjingprefab.layer = LayerMask.NameToLayer("visibleto1");
+                    xianjingprefab.GetComponent<BoxCollider2D>().enabled = false;
+                }
+
+                if (gameObject.CompareTag("Player2"))
+                {
+                    xianjingprefab.layer = LayerMask.NameToLayer("visibleto2");
+                    xianjingprefab.GetComponent<BoxCollider2D>().enabled = false;
+                }
+
+                Instantiate(xianjingprefab, position, rotation);
+                Invoke("WaitSecondsForCollider", 0.5f);
+                //Debug.Log("used xianjing");
 
             }
 
@@ -135,7 +160,7 @@ public class Itemuse : MonoBehaviour
 
             if (item.Itemname == "huisu")
             {
-                player1script.isTurn = false;
+                playerscript.isTurn = false;
                 Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
                 Vector3 position = gameObject.transform.position;
                 
@@ -163,7 +188,18 @@ public class Itemuse : MonoBehaviour
 
             if (item.Itemname == "zhuanjia")
             {
-                ballscript.goldincrement1++;
+
+
+                if (gameObject.CompareTag("Player1"))
+                {
+                    ballscript.goldincrement1++;
+                }
+
+                if (gameObject.CompareTag("Player2"))
+                {
+                    ballscript.goldincrement2++;
+                 }
+
             }
 
             if (item.Itemname == "dongzhu")
@@ -196,11 +232,131 @@ public class Itemuse : MonoBehaviour
 
             if (item.Itemname == "qingna")
             {
-                ballscript.zhadan2 = true;
+
+                if (gameObject.CompareTag("Player1"))
+                {
+                    ballscript.zhadan2 = true;
+                }
+
+                if (gameObject.CompareTag("Player2"))
+                {
+                    ballscript.zhadan1 = true;
+                }
+
             }
 
+            if (item.Itemname == "yinxing")
+            {
+                if (gameObject.CompareTag("Player1"))
+                {
+                    InvokeRepeating("Invisibleto2", 1f, 10f);
+                }
+
+                if (gameObject.CompareTag("Player2"))
+                {
+                    InvokeRepeating("Invisibleto1", 1f, 10f);
+                }
+            }
+
+
+            if (item.Itemname == "youling")
+            {
+                Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+                rb.bodyType = RigidbodyType2D.Static;
+                playerscript.moveSpeed += 5f;
+            }
+
+
+            if (item.Itemname == "zhuaqu")
+            {
+                Vector3 position = gameObject.transform.position;
+                Quaternion rotation = gameObject.transform.rotation;
+
+                if (gameObject.CompareTag("Player1"))
+                {
+                    zhuaquprefab.tag = "prepfor2";
+                    
+                }
+
+                if (gameObject.CompareTag("Player2"))
+                {
+                    zhuaquprefab.tag = "prepfor1";
+                }
+
+                Instantiate(zhuaquprefab, position, rotation);
+            }
+
+            if (item.Itemname == "qiangli")
+            {
+                //opponent.GetComponent<Attack>().attackRange++;
+            }
+
+            if (item.Itemname == "TNT")
+            {
+                Vector3 position = gameObject.transform.position;
+                Quaternion rotation = gameObject.transform.rotation;
+
+                if (gameObject.CompareTag("Player1"))
+                {
+                    TNTprefab.tag = "prepfor2";
+
+                }
+
+                if (gameObject.CompareTag("Player2"))
+                {
+                    TNTprefab.tag = "prepfor1";
+                }
+
+                Instantiate(TNTprefab, position, rotation);
+            }
+
+            if (item.Itemname == "cao")
+            {
+                Vector3 position = gameObject.transform.position;
+                Quaternion rotation = gameObject.transform.rotation;
+
+                Instantiate(caoprefab, position, rotation);
+            }
+        
         }
 
+    }
+
+
+
+
+
+    public void Invisibleto2()
+    {
+        p2camera.cullingMask &= ~(1 << 3);
+        Invoke("Visibleto2", 4f);
+    }
+
+    public void Invisibleto1()
+    {
+        p1camera.cullingMask &= ~(1 << 7);
+        Invoke("Visibleto1", 4f);
+    }
+
+    public void Visibleto2()
+    {
+        p2camera.cullingMask |= (1 << 3);
+    }
+
+    public void Visibleto1()
+    {
+        p1camera.cullingMask |= (1 << 7);
+    }
+
+
+
+    public void WaitSecondsForCollider()
+    {
+        GameObject[] xianjings = GameObject.FindGameObjectsWithTag("xianjing");
+        foreach (var xianjing in xianjings)
+        {
+            xianjing.GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
 
 

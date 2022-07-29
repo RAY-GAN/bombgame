@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65482cf4e28394fcdad82a5d90335507, type: 3}
+  m_Name: zhuaqu
+  m_EditorClassIdentifier: 
+  Itemname: zhuaqu
+  Description: "\u70B8\u5F39\u6293\u53D6\u5668\uFF1A\u4F1A\u4E3B\u52A8\u6293\u53D6\u8FDB\u5165\u8303\u56F4\u7684\u654C\u65B9\u70B8\u5F39\uFF0C\u4E00\u6BB5\u65F6\u95F4\u540E\u677E\u5F00"
+  Image: {fileID: 21300100, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  cost: 7

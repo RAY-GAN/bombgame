@@ -10,7 +10,7 @@ public class Ball : MonoBehaviour
     public GameObject Player1;
     public GameObject Player2;
     private LayerMask ballTurn;
-    public int ballowner = 1;
+    public int ballowner = 2;
     public int attackowner = 1;
     public int goldincrement1 = 1;
     public int goldincrement2 = 1;
