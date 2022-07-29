@@ -68,7 +68,7 @@ public class Ball : MonoBehaviour
         }
 
 
-        if (collision.gameObject.CompareTag("Block"))
+        if (collision.gameObject.CompareTag("Coin"))
         {
             Destroy(collision.gameObject);
             if (attackowner == 1)
@@ -80,6 +80,35 @@ public class Ball : MonoBehaviour
                 player2gold.gold += goldincrement2;
             }
         }
+
+        if (collision.gameObject.CompareTag("Star"))
+        {
+            Destroy(collision.gameObject);
+            if (attackowner == 1)
+            {
+                player1gold.gold += (3 + goldincrement1);
+            }
+            if (attackowner == 2)
+            {
+                player2gold.gold += (3 + goldincrement1);
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Health"))
+        {
+            Destroy(collision.gameObject);
+            if (attackowner == 1)
+            {
+                Player1.GetComponent<Player>().health--;
+            }
+            if (attackowner == 2)
+            {
+                Player2.GetComponent<Player>().health--;
+            }
+        }
+
+
+
         if (collision.gameObject.CompareTag("Player1"))
         {
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player1"), LayerMask.NameToLayer("BallTurn"), true);
