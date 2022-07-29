@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -42,7 +43,8 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
 
                 /* player1*/
-                if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player1")
+                if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player1"
+                    & GameManager.instance.State == GameManager.GameState.Storeplayer1)
                 {
 
                     if (InventoryManager.AddItem(transaction, player1items))
@@ -67,8 +69,16 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 }
 
+                else if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player1"
+                   & GameManager.instance.State == GameManager.GameState.Storeplayer2)
+
+                {
+                    Backpos(eventData);
+                }
+
                 /* player2*/
-                else if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player2")
+                else if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player2"
+                    & GameManager.instance.State == GameManager.GameState.Storeplayer2)
                 {
 
                     if (InventoryManager.AddItem(transaction, player2items))
@@ -86,6 +96,13 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 }
 
+                else if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.parent.gameObject.name == "Player2"
+                   & GameManager.instance.State == GameManager.GameState.Storeplayer1)
+
+                {
+                    Backpos(eventData);
+                }
+
             }
 
             else
@@ -98,12 +115,18 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         /* 从角色退回到商店*/
         else if (originalparent.parent.gameObject.name == "Items")
         {
-            if (eventData.pointerCurrentRaycast.gameObject.name == "Image"
+            if (transaction == null)
+            {
+                Backpos(eventData);
+            }
+
+            else if (eventData.pointerCurrentRaycast.gameObject.name == "Image"
                & (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.parent.gameObject.name == "SellItems"))
             {
 
                 /* player1*/
-                if (originalparent.parent.parent.gameObject.name == "Player1")
+                if (originalparent.parent.parent.gameObject.name == "Player1"
+                    & GameManager.instance.State == GameManager.GameState.Storeplayer1)
                 {
                     if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.gameObject.GetComponent<Slot>().item != null)
                     {
@@ -116,8 +139,11 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 }
 
+                
+
                 /* player2*/
-                else if (originalparent.parent.parent.gameObject.name == "Player2")
+                else if (originalparent.parent.parent.gameObject.name == "Player2"
+                    & GameManager.instance.State == GameManager.GameState.Storeplayer2)
                 {
                     if (eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.gameObject.GetComponent<Slot>().item != null)
                     {
@@ -140,13 +166,19 @@ public class Itemdraghandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private void Switchpos(PointerEventData eventData)
     {
-        Item temp = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.GetComponent<Slot>().item;
+        Item tempitem = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.GetComponent<Slot>().item;
+        Image tempimage = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.GetComponent<Slot>().itemicon;
+        Text temptext = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.GetComponent<Slot>().cost;
         transform.SetParent(eventData.pointerCurrentRaycast.gameObject.transform.parent.parent);
         transform.position = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.position;
         transform.parent.GetComponent<Slot>().item = transaction;
+        transform.parent.GetComponent<Slot>().itemicon = originalparent.GetComponent<Slot>().itemicon;
+        transform.parent.GetComponent<Slot>().cost = originalparent.GetComponent<Slot>().cost;
         eventData.pointerCurrentRaycast.gameObject.transform.parent.position = originalparent.position;
         eventData.pointerCurrentRaycast.gameObject.transform.parent.SetParent(originalparent);
-        originalparent.GetComponent<Slot>().item = temp;
+        originalparent.GetComponent<Slot>().item = tempitem;
+        originalparent.GetComponent<Slot>().itemicon = tempimage;
+        originalparent.GetComponent<Slot>().cost = temptext;
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         return;
     }

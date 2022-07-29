@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d461882024a4c3bba385940e032c3a, type: 3}
-  m_Name: player1
+  m_Script: {fileID: 11500000, guid: 65482cf4e28394fcdad82a5d90335507, type: 3}
+  m_Name: dongzhu
   m_EditorClassIdentifier: 
-  itemlist:
-  - {fileID: 11400000, guid: ac4b260f6624e4120b4e3d61d133f62c, type: 2}
-  - {fileID: 11400000, guid: ac4b260f6624e4120b4e3d61d133f62c, type: 2}
-  gold: 0
-  score: 0
+  Itemname: dongzhu
+  Description: "\u51BB\u4F4F\uFF1A\u5BF9\u624B\u7684\u79FB\u52A8\u901F\u5EA6\u53D8\u6162"
+  Image: {fileID: 21300040, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  cost: 8

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65482cf4e28394fcdad82a5d90335507, type: 3}
+  m_Name: yinxing
+  m_EditorClassIdentifier: 
+  Itemname: yinxing
+  Description: "\u9690\u5F62\u836F\u6C34\uFF1A\u6BCF\u5341\u79D2\u7684\u524D\u4E09\u79D2\u5BF9\u5BF9\u624B\u4E0D\u53EF\u89C1"
+  Image: {fileID: 21300088, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  cost: 10

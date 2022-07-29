@@ -10,6 +10,11 @@ TagManager:
   - Block
   - Floor
   - Wall
+  - xianjing
+  - prepfor1
+  - prepfor2
+  - qiangli
+  - camera
   layers:
   - Default
   - TransparentFX
@@ -18,9 +23,9 @@ TagManager:
   - Water
   - UI
   - BallTurn
-  - 
-  - 
-  - 
+  - Player2
+  - visibleto1
+  - visibleto2
   - 
   - 
   - 

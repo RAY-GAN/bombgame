@@ -4,6 +4,9 @@ using UnityEngine;
 
 class OffscreenMarkersCameraScript : MonoBehaviour
 {
+
+   
+
     public static OffscreenMarkersCameraScript Instance()
     {
         Camera mc = Camera.main;
@@ -19,6 +22,23 @@ class OffscreenMarkersCameraScript : MonoBehaviour
         }
         return instance;
     }
+
+    void Awake()
+    {
+        GameManager.OnGameStateChanged += GameManager_OnGameStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManager_OnGameStateChanged;
+    }
+
+    private void GameManager_OnGameStateChanged(GameManager.GameState state)
+    {
+
+        gameObject.GetComponent<OffscreenMarkersCameraScript>().enabled = (state == GameManager.GameState.Playing);
+    }
+
 
     private Camera _camera => gameObject.GetComponent<Camera>();
     private List<OffscreenMarker> _trackedObjects = new List<OffscreenMarker>();
