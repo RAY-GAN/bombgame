@@ -79,6 +79,18 @@ public class GameManager : MonoBehaviour
         player2data.gold = 0;
         player2data.score = 0;
 
+        int random = UnityEngine.Random.Range(0, 2);
+
+        if (random == 0)
+        {
+            Resetballto1();
+        }
+
+        if (random == 1)
+        {
+            Resetballto2();
+        }
+
         started = false;
     }
 
@@ -125,19 +137,7 @@ public class GameManager : MonoBehaviour
             player2data.score++;
             player1data.gold += 5;
 
-            Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
-            Vector3 p1pos = player1.transform.position;
-            Player player1script = player1.GetComponent<Player>();
-       
-            player1script.isTurn = false;
-            ball.transform.position = new Vector3(p1pos.x, p1pos.y + 1.1f, p1pos.z);
-            ball.transform.SetParent(player1.transform);
-            rb.velocity = Vector3.zero;
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            rb.constraints = RigidbodyConstraints2D.None;
-
-            ball.ballowner = 2;
-            ball.attackowner = 1;
+            Resetballto1();
 
             UpdateGameState(GameState.Storeplayer1);
         }
@@ -147,23 +147,8 @@ public class GameManager : MonoBehaviour
             player1data.score++;
             player2data.gold += 5;
 
-            Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
-            Vector3 p2pos = player2.transform.position;
-            Player player2script = player2.GetComponent<Player>();
 
-
-            player2script.isTurn = false;
-
-
-            ball.transform.position = new Vector3(p2pos.x, p2pos.y + 1.1f, p2pos.z);
-            ball.transform.SetParent(player2.transform);
-            rb.velocity = Vector3.zero;
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            rb.constraints = RigidbodyConstraints2D.None;
-
-            ball.ballowner = 1;
-            ball.attackowner = 2;
-
+            Resetballto2();
 
             UpdateGameState(GameState.Storeplayer2);
         }
@@ -178,10 +163,52 @@ public class GameManager : MonoBehaviour
     void OngameComplete()
     {
         Debug.Log("set complete!");
+        bombtimer.destory();
         UpdateGameState(GameState.Result);
     }
 
-    
+
+
+
+
+    public void Resetballto1()
+    {
+        Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+        Vector3 p1pos = player1.transform.position;
+        Player player1script = player1.GetComponent<Player>();
+
+        player1script.isTurn = false;
+        ball.transform.position = new Vector3(p1pos.x, p1pos.y + 1.1f, p1pos.z);
+        ball.transform.SetParent(player1.transform);
+        rb.velocity = Vector3.zero;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        rb.constraints = RigidbodyConstraints2D.None;
+
+        ball.ballowner = 2;
+        ball.attackowner = 1;
+    }
+
+
+    public void Resetballto2()
+
+    {
+        Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+        Vector3 p2pos = player2.transform.position;
+        Player player2script = player2.GetComponent<Player>();
+
+
+        player2script.isTurn = false;
+
+
+        ball.transform.position = new Vector3(p2pos.x, p2pos.y + 1.1f, p2pos.z);
+        ball.transform.SetParent(player2.transform);
+        rb.velocity = Vector3.zero;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        rb.constraints = RigidbodyConstraints2D.None;
+
+        ball.ballowner = 1;
+        ball.attackowner = 2;
+    }
 
     public enum GameState
     {
