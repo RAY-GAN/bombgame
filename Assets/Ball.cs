@@ -99,11 +99,11 @@ public class Ball : MonoBehaviour
             Destroy(collision.gameObject);
             if (attackowner == 1)
             {
-                Player1.GetComponent<Player>().health--;
+                //Player1.GetComponent<Player>().health--;
             }
             if (attackowner == 2)
             {
-                Player2.GetComponent<Player>().health--;
+                //Player2.GetComponent<Player>().health--;
             }
         }
 
