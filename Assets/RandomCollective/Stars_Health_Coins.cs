@@ -10,7 +10,7 @@ public class Stars_Health_Coins : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             RandomInstantiate(coinPre);
         }
@@ -35,5 +35,7 @@ public class Stars_Health_Coins : MonoBehaviour
     private void RandomInstantiate(GameObject theObject)
     {
         Instantiate(theObject, new Vector3(Random.Range(limitNagX, limitPosX), Random.Range(limitNagY, limitPosY), -0.5f), Quaternion.identity);
+        
     }
+
 }
